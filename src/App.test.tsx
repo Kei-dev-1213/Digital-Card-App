@@ -3,9 +3,9 @@ import "@testing-library/jest-dom";
 import App from "./App";
 
 describe("テスト", () => {
-  it("テスト", () => {
+  it("あい", () => {
     render(<App />);
-    const element = screen.getByText("テスト");
+    const element = screen.getByText("あいうえお");
     expect(element).toBeInTheDocument();
   });
 });

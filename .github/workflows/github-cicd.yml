@@ -45,6 +45,9 @@ jobs:
           node-version: "20"
           cache: npm
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools
 

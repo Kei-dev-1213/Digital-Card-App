@@ -1,5 +1,5 @@
 function App() {
-  return <>テスト</>;
+  return <>あいうえお</>;
 }
 
 export default App;

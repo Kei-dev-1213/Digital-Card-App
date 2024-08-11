@@ -9,17 +9,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install dependencies
-        run: npm install
+        run: bun install
 
       - name: Run build
-        run: npm run build
+        run: bun run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -42,14 +39,11 @@ jobs:
         with:
           name: dist
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: npm
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
 
       - name: Install firebase-tools
-        run: npm install --save-dev firebase-tools
+        run: bun install --save-dev firebase-tools
 
       - name: Decode Firebase service account key
         run: |

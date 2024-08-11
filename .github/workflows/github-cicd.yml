@@ -13,9 +13,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: npm
 
       - name: Install dependencies
-        run: npm i
+        run: npm install
 
       - name: Run build
         run: npm run build
@@ -33,6 +34,9 @@ jobs:
       VITE_SUPABASE_URL: ${{secrets.SUPABASE_URL}}
       VITE_SUPABASE_ANON_KEY: ${{secrets.SUPABASE_ANON_KEY}}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Download artifact from deployment job
         uses: actions/download-artifact@v4
         with:
@@ -42,9 +46,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
+          cache: npm
 
       - name: Install dependencies
-        run: npm i
+        run: npm install
 
       - name: Install firebase-tools
         run: npm install --save-dev firebase-tools

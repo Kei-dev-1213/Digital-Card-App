@@ -1,6 +1,6 @@
 import { CONSTANT } from "../constant";
 
-export class UserCard {
+export class UserCardInfo {
   constructor(
     public user_id: string,
     public name: string,

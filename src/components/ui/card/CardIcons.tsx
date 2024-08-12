@@ -13,7 +13,7 @@ export const CardIcons: FC<{ userData: UserCardInfo }> = memo(({ userData }) => 
           <FaGithub size="30px" />
         </UI.Link>
       )}
-      {userData.getQiitaUrl && (
+      {userData.qiita_id && (
         <UI.Link href={userData.getQiitaUrl()} target="_blank">
           <GrArticle size="30px" />
         </UI.Link>

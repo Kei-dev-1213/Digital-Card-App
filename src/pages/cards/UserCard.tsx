@@ -1,14 +1,18 @@
 import { FC, memo, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DB } from "../../supabase";
 import { UserCardInfo } from "../../type/UserCardInfo";
 import * as UI from "@chakra-ui/react";
 import { Card } from "../../components/ui/card/Card";
 import { Loading } from "../../components/ui/loading/Loading";
+import { useMessage } from "../../hooks/useMessage";
+import { PageWrapper } from "../../components/ui/layout/PageWrapper";
 
-export const Cards: FC = memo(() => {
+export const UserCard: FC = memo(() => {
   // hooks
   const { id } = useParams();
+  const { displayMessage } = useMessage();
+  const navigate = useNavigate();
 
   // state
   const [loading, setLoading] = useState(true);
@@ -27,16 +31,27 @@ export const Cards: FC = memo(() => {
       setUserData(fetchedUserData);
       setError("");
       setLoading(false);
+      displayMessage({ title: "検索が完了しました。", status: "success" });
     } catch (e) {
       console.error(e);
-      setError("予期せぬエラーが発生しました。");
+      setError("条件に一致するユーザーが見つかりません。");
       setLoading(false);
+      displayMessage({ title: "ユーザーが見つかりません。", status: "error" });
     }
   };
 
   return (
-    <UI.Flex w="100%" h="100vh" alignItems="center" justifyContent="center">
-      {error ? error : loading ? <Loading /> : <Card userData={userData} w="60%" />}
-    </UI.Flex>
+    <PageWrapper h="100vh">
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {error ? error : <Card userData={userData} w="70%" />}
+          <UI.Link onClick={() => navigate("/")} my={4}>
+            TOPに戻る
+          </UI.Link>
+        </>
+      )}
+    </PageWrapper>
   );
 });

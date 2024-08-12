@@ -7,6 +7,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { UserInputs } from "../../type/UserInputs";
 import { useNavigate } from "react-router-dom";
 import { useMessage } from "../../hooks/useMessage";
+import { PageWrapper } from "../../components/ui/layout/PageWrapper";
+import { PageTitle } from "../../components/ui/layout/PageTitle";
+import { Util } from "../../util";
 
 export const Register: FC = memo(() => {
   // hooks
@@ -37,12 +40,13 @@ export const Register: FC = memo(() => {
   const regist: SubmitHandler<UserInputs> = async (registFormData: UserInputs) => {
     await DB.registUserCardInfo(registFormData);
     displayMessage({ title: "登録が完了しました。", status: "success" });
+    Util.fireConfetti();
     navigate("/");
   };
 
   return (
-    <UI.Flex w="100%" my={10} flexDirection="column" alignItems="center" justifyContent="center">
-      <UI.Heading mb={4}>新規名刺登録</UI.Heading>
+    <PageWrapper>
+      <PageTitle>新規名刺登録</PageTitle>
       {loading ? (
         <Loading />
       ) : (
@@ -135,6 +139,6 @@ export const Register: FC = memo(() => {
           </form>
         </UI.Card>
       )}
-    </UI.Flex>
+    </PageWrapper>
   );
 });

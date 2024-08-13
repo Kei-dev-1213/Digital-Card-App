@@ -49,7 +49,7 @@ export const Register: FC = memo(() => {
   };
 
   return (
-    <PageWrapper>
+    <PageWrapper my="10">
       <PageTitle>新規名刺登録</PageTitle>
       {loading ? (
         <Loading />

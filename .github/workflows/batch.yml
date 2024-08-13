@@ -1,9 +1,10 @@
-name: Github CI
+name: Batch
 
-on: push
+on:
+  workflow_dispatch:
 
 jobs:
-  test:
+  batch:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,5 +16,5 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Run Jest
-        run: bun run test -- --coverage
+      - name: Run batch job
+        run: npx tsx batch/index.ts

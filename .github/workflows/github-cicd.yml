@@ -1,4 +1,4 @@
-name: Github CI
+name: Github CICD
 
 on: push
 
@@ -61,3 +61,18 @@ jobs:
       - name: delete GOOGLE_APPLICATION_CREDENTIALS
         run: rm $GOOGLE_APPLICATION_CREDENTIALS
         if: ${{ always() }}
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run Jest
+        run: bun run test -- --coverage

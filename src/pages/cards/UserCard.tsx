@@ -1,18 +1,17 @@
 import { FC, memo, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { DB } from "../../supabase";
 import { UserCardInfo } from "../../type/UserCardInfo";
-import * as UI from "@chakra-ui/react";
 import { Card } from "../../components/ui/card/Card";
 import { Loading } from "../../components/ui/loading/Loading";
 import { useMessage } from "../../hooks/useMessage";
 import { PageWrapper } from "../../components/ui/layout/PageWrapper";
+import { LinkToTop } from "../../components/ui/card/LinkToTop";
 
 export const UserCard: FC = memo(() => {
   // hooks
   const { id } = useParams();
   const { displayMessage } = useMessage();
-  const navigate = useNavigate();
 
   // state
   const [loading, setLoading] = useState(true);
@@ -47,9 +46,7 @@ export const UserCard: FC = memo(() => {
       ) : (
         <>
           {error ? error : <Card userData={userData} w="70%" />}
-          <UI.Link onClick={() => navigate("/")} my={4}>
-            TOPに戻る
-          </UI.Link>
+          <LinkToTop />
         </>
       )}
     </PageWrapper>

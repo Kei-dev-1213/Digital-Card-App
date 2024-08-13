@@ -9,8 +9,6 @@ const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env
 
 // userIdからカード情報を取得(1件)
 const fetchUserSkillInfoFromUserId = async (id: string) => {
-  console.log("URL" + import.meta.env.VITE_SUPABASE_URL);
-  console.log("ANON_KEY" + import.meta.env.VITE_SUPABASE_ANON_KEY);
   try {
     // ユーザーテーブル
     const userData = await supabase.from("users").select("*").eq("user_id", id);

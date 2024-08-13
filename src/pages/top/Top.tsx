@@ -6,6 +6,7 @@ import { PageWrapper } from "../../components/ui/layout/PageWrapper";
 import { PageTitle } from "../../components/ui/layout/PageTitle";
 import { UserSearchInputs } from "../../type/UserSearchInputs";
 import { SearchIcon } from "@chakra-ui/icons";
+import { Link } from "../../components/ui/card/LinkToTop";
 
 export const Top: FC = memo(() => {
   // hooks
@@ -18,19 +19,14 @@ export const Top: FC = memo(() => {
   } = useForm<UserSearchInputs>();
   const navigate = useNavigate();
 
-  // state
-  useEffect(() => {
-    reset();
-  }, []);
+  // 初期処理
+  useEffect(() => reset(), []);
 
   // functions
-  // 登録
+  // 検索
   const search: SubmitHandler<UserSearchInputs> = async (formData: UserSearchInputs) => {
     navigate(`/cards/${formData.user_id}`);
   };
-
-  // user_idの値を監視
-  const userIdValue = watch("user_id");
 
   return (
     <PageWrapper h="100vh">
@@ -40,24 +36,27 @@ export const Top: FC = memo(() => {
           <UI.FormControl pb={3}>
             <UI.FormLabel>ユーザーID</UI.FormLabel>
             <UI.Input
+              data-testid="input-user-id"
               type="text"
               placeholder="IDを入力"
               {...register("user_id", {
-                required: "ユーザーIDは必須項目です。",
                 pattern: { value: /^[a-zA-Z0-9_]+$/, message: "ユーザーIDは半角英数字で入力してください。" },
               })}
             />
             <UI.Box color="red">{errors.user_id && errors.user_id.message}</UI.Box>
           </UI.FormControl>
-          <UI.Button type="submit" colorScheme="teal" w="100%" isDisabled={(errors.user_id && true) || !userIdValue}>
+          <UI.Button
+            type="submit"
+            colorScheme="teal"
+            w="100%"
+            isDisabled={(errors.user_id && true) || !watch("user_id")}
+          >
             <SearchIcon />
             名刺を見る
           </UI.Button>
         </form>
       </UI.Card>
-      <UI.Link onClick={() => navigate("/cards/register")} my={4}>
-        新規登録はこちら
-      </UI.Link>
+      <Link linkText="新規登録はこちら" to="/cards/register" />
     </PageWrapper>
   );
 });
